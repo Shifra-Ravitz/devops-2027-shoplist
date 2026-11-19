@@ -6,7 +6,7 @@ metadata:
   namespace: shoplist
 spec:
   accessModes:
-    - ReadWritesOnce                  # only one node writes at a time
+    - ReadWriteOnce                  # only one node writes at a time
   resources:
     requests:
       storage: 1Gi         # how much space? one gigabyte
