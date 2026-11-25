@@ -4,7 +4,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: stats
-  namespace: shoplist
+  namespace: {{ .Release.Namespace }}
 spec:
   replicas: {{ .Values.stats.replicas }}
   selector:
@@ -19,6 +19,13 @@ spec:
         - name: stats
           image: {{ .Values.stats.image.repository }}:{{ .Values.stats.image.tag }} 
           imagePullPolicy: {{ .Values.imagePullPolicy }}
+          resources:
+            requests:
+              cpu: {{ .Values.stats.resources.requests.cpu | quote }}
+              memory: {{ .Values.stats.resources.requests.memory | quote }}
+            limits:
+              cpu: {{ .Values.stats.resources.limits.cpu | quote }}
+              memory: {{ .Values.stats.resources.limits.memory | quote }}
           env:
             - name: BACKEND_URL
               value: http://backend:5000        # backend Service name, with http:// and port

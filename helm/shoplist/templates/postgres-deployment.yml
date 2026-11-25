@@ -4,7 +4,7 @@ apiVersion: apps/v1
 kind: Deployment                          # which resource keeps pods running?
 metadata:
   name: postgres
-  namespace: shoplist
+  namespace: {{ .Release.Namespace }}
 spec:
   replicas: 1
   selector:
@@ -17,7 +17,14 @@ spec:
     spec:
       containers:
         - name: postgres
-          image: postgres:15-alpine               # same image as in Compose: version 15, alpine
+          image: postgres:15-alpine 
+          resources:
+            requests:
+              cpu: {{ .Values.postgres.resources.requests.cpu | quote }}
+              memory: {{ .Values.postgres.resources.requests.memory | quote }}
+            limits:
+              cpu: {{ .Values.postgres.resources.limits.cpu | quote }}
+              memory: {{ .Values.postgres.resources.limits.memory | quote }}              # same image as in Compose: version 15, alpine
           envFrom:
             - secretRef:
                 name: postgres-secret          # name of the Secret (postgres-secret.yml)

@@ -3,7 +3,7 @@ apiVersion: v1
 kind: ConfigMap                  # which resource stores regular (non-secret) configuration?
 metadata:
   name: postgres-init       # postgres-deployment mounts it by this exact name
-  namespace: shoplist
+  namespace: {{ .Release.Namespace }}
 data:
   init.sql: |                   # file name inside the container (same as in the sql/ folder)
     CREATE TABLE IF NOT EXISTS products (

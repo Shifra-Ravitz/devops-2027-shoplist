@@ -3,7 +3,7 @@ apiVersion: v1
 kind: Service
 metadata:
   name: backend                # nginx.conf and stats use this exact name
-  namespace: shoplist
+  namespace: {{ .Release.Namespace }}
 spec:
   selector:
     app: backend               # label from backend-deployment.yml

@@ -3,7 +3,7 @@ apiVersion: v1
 kind: Service
 metadata:
   name: stats           # this name is the address. nginx.conf looks for it
-  namespace: shoplist
+  namespace: {{ .Release.Namespace }}
 spec:
   selector:
     app: stats         # must match the label in stats-deployment.yml
